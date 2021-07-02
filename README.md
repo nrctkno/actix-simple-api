@@ -39,11 +39,12 @@ Cargo: `cargo install diesel_cli --no-default-features --features mysql`
 ```
 error: linking with `cc` failed: exit status: 1
 ```
-Run:
+Verify if you have installed the correct database client in your system (for mysql see intructions in https://github.com/sgrif/mysqlclient-sys).
+
+
+Other issues: try running
 ```
 cargo clean
 cargo update
 cargo build --all-features
 ```
-
-
