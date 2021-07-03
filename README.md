@@ -12,7 +12,11 @@ rustc --version
 
 Install mysql client DEV, i.e. `sudo apt-get install libmysqlclient-dev` or the linux package manager that your distro uses.
 
+Install Diesel cli: `cargo install diesel_cli --no-default-features --features mysql`
+
 Copy `.env.dist` to `.env` an customize the parameters.
+
+Run `diesel migration run`.
 
 ## Run
 
@@ -29,17 +33,18 @@ cargo run
 Navigate to http://localhost:8080/ .
 
 
-## Install aditional tools
 
-Cargo: `cargo install diesel_cli --no-default-features --features mysql`
+## Creating entities
 
+Create a new Queryable and a new Insertable in `src/models.rs`.
+Run `diesel print-schema > src/schema.rs`
 
 ## Troubleshooting
 
 ```
 error: linking with `cc` failed: exit status: 1
 ```
-Verify if you have installed the correct database client in your system (for mysql see intructions in https://github.com/sgrif/mysqlclient-sys).
+Check if you have installed the correct database client in your system (for mysql see intructions in https://github.com/sgrif/mysqlclient-sys).
 
 
 Other issues: try running

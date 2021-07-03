@@ -1,6 +1,7 @@
-mod actions;
+mod handlers;
+mod models;
+mod schema;
 
-use actions::*;
 use actix_web::{web, App, HttpServer};
 use diesel::prelude::*;
 use diesel::r2d2::{self, ConnectionManager};
@@ -34,11 +35,13 @@ async fn main() -> std::io::Result<()> {
             .service(
                 // prefixes all resources and routes attached to it...
                 web::scope("/api/v1")
-                    .route("/products", web::get().to(products::get))
-                    .route("/products", web::post().to(products::post))
-                    .route("/products/{id}/sell", web::post().to(sales::post)),
+                    //.route("/products", web::get().to(products::get))
+                    .route("/products", web::get().to(handlers::get))
+                    //.route("/products", web::post().to(products::post))
+                    .route("/products", web::post().to(handlers::post)), //.route("/products/{id}/sell", web::post().to(sales::post)),
             )
-            .route("/", web::get().to(home::get))
+            //.route("/", web::get().to(home::get))
+            .route("/", web::get().to(handlers::home))
     })
     .bind("127.0.0.1:8080")?
     .run()
