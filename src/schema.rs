@@ -2,8 +2,8 @@ table! {
     products (id) {
         id -> Integer,
         name -> Varchar,
-        //price -> Nullable<Decimal>,
+        price -> Integer,
         stock -> Integer,
-        //status -> Enum,
+        status -> Varchar,
     }
 }

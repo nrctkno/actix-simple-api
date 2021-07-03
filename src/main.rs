@@ -1,7 +1,24 @@
-mod handlers;
-mod models;
 mod schema;
 
+/*
+we can define the crate's modules inside the main file or in different files
+*/
+mod models {
+    pub mod product;
+}
+
+mod actions {
+    pub mod home;
+    pub mod product;
+}
+
+mod repositories {
+    pub mod product;
+}
+
+/*
+crate´s imports
+*/
 use actix_web::{web, App, HttpServer};
 use diesel::prelude::*;
 use diesel::r2d2::{self, ConnectionManager};
@@ -36,12 +53,12 @@ async fn main() -> std::io::Result<()> {
                 // prefixes all resources and routes attached to it...
                 web::scope("/api/v1")
                     //.route("/products", web::get().to(products::get))
-                    .route("/products", web::get().to(handlers::get))
+                    .route("/products", web::get().to(actions::product::get))
                     //.route("/products", web::post().to(products::post))
-                    .route("/products", web::post().to(handlers::post)), //.route("/products/{id}/sell", web::post().to(sales::post)),
+                    .route("/products", web::post().to(actions::product::post)), //.route("/products/{id}/sell", web::post().to(sales::post)),
             )
             //.route("/", web::get().to(home::get))
-            .route("/", web::get().to(handlers::home))
+            .route("/", web::get().to(actions::home::get))
     })
     .bind("127.0.0.1:8080")?
     .run()
